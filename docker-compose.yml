@@ -71,3 +71,10 @@ services:
       - ./erp/data = /var/lib/odoo
     restart: always             # run as a service
     entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
+    
+volumes:
+    mariadb:
+    npm:
+    letsencrypt:
+    postgresql:
+    erp:
