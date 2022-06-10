@@ -1,0 +1,74 @@
+services:
+  NginxProxyManager:
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      # These ports are in format <host-port>:<container-port>
+      - '80:80' # Public HTTP Port
+      - '443:443' # Public HTTPS Port
+      - '81:81' # Admin Web Port
+      # Add any other Stream port you want to expose
+      # - '21:21' # FTP
+    environment:
+      DB_MYSQL_HOST: "MariaDB"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "npm"
+      DB_MYSQL_PASSWORD: "npm"
+      DB_MYSQL_NAME: "npm"
+      # Uncomment this if IPv6 is not enabled on your host
+      # DISABLE_IPV6: 'true'
+    volumes:
+      - ./data:/data
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - MariaDB
+
+  MariaDB:
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    volumes:
+        - ./data/mysql:/var/lib/mysql
+
+  postgres:
+    image: postgres:13
+    user: root
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB="postgres"
+      - POSTGRES_USER="erp"
+      - POSTGRES_PASSWORD="erp"
+      
+      
+    restart: always             # run as a service
+    volumes:
+        - ./postgresql:/var/lib/postgresql/data
+
+  odoo14:
+    image: odoo:14
+    user: root
+    depends_on:
+      - postgres
+    ports:
+      - "8069:8069"
+      - "8072:8072" # live chat
+    tty: true
+    command: --
+#    command: odoo scaffold /mnt/extra-addons/custom_module
+    environment:
+      - HOST="postgres"
+      - USER="erp"
+      - PASSWORD="erp"
+    volumes:
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+      # - ./entrypoint.sh:/entrypoint.sh   # if you want to install additional Python packages, uncomment this line!
+      - ./addons:/mnt/extra-addons
+      - ./etc:/etc/odoo
+      - ./data_dir = /var/lib/odoo
+    restart: always             # run as a service
