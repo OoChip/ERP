@@ -43,9 +43,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB= postgres
-      - POSTGRES_USER= erp
-      - POSTGRES_PASSWORD=erp
+      - POSTGRES_DB="postgres"
+      - POSTGRES_USER="erp"
+      - POSTGRES_PASSWORD="erp"
       - PGDATA=/var/lib/postgresql/data/   
     restart: always
     volumes:
@@ -62,9 +62,9 @@ services:
       - "8072:8072"
     tty: true
     environment:
-      - HOST= postgres
-      - USER= erp
-      - PASSWORD= erp      
+      - HOST="postgres"
+      - USER="erp"
+      - PASSWORD="erp"
     volumes:
       - ./erp/addons:/mnt/extra-addons
       - ./erp/etc:/etc/odoo
