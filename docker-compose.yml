@@ -37,7 +37,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB= "postgres"
+      - POSTGRES_DB= "erp"
       - POSTGRES_USER= "erp"
       - POSTGRES_PASSWORD= "erp"
       - PGDATA=/var/lib/postgresql/data/   
@@ -56,7 +56,7 @@ services:
       - "8072:8072"
     tty: true
     environment:
-      - HOST= "postgres"
+      - HOST= "erp"
       - USER= "erp"
       - PASSWORD= "erp"
     volumes:
