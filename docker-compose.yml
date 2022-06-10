@@ -1,7 +1,8 @@
 services:
-  NginxProxyManager:
+  npm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
+    hostname: npm    
     ports:
       # These ports are in format <host-port>:<container-port>
       - '80:80' # Public HTTP Port
@@ -10,7 +11,7 @@ services:
       # Add any other Stream port you want to expose
       # - '21:21' # FTP
     environment:
-      DB_MYSQL_HOST: "MariaDB"
+      DB_MYSQL_HOST: "mariadb"
       DB_MYSQL_PORT: 3306
       DB_MYSQL_USER: "npm"
       DB_MYSQL_PASSWORD: "npm"
@@ -21,11 +22,12 @@ services:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
     depends_on:
-      - MariaDB
+      - mariadb
 
-  MariaDB:
+  mariadb:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
+    hostname: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
@@ -37,6 +39,7 @@ services:
   postgres:
     image: postgres:13
     user: root
+    hostname: postgres
     ports:
       - "5432:5432"
     environment:
@@ -54,6 +57,7 @@ services:
     user: root
     depends_on:
       - postgres
+    hostname: erp
     ports:
       - "8069:8069"
       - "8072:8072" # live chat
