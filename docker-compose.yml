@@ -10,7 +10,7 @@ services:
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npm'
     volumes:
-        - ./mariadb/:/var/lib/mysql
+        - mariadb/:/var/lib/mysql
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
@@ -31,8 +31,8 @@ services:
       # Uncomment this if IPv6 is not enabled on your host
       # DISABLE_IPV6: 'true'
     volumes:
-      - ./npm:/data
-      - ./letsencrypt:/etc/letsencrypt
+      - npm:/data
+      - letsencrypt:/etc/letsencrypt
     depends_on:
       - mariadb
 
@@ -49,7 +49,7 @@ services:
       - PGDATA=/var/lib/postgresql/data/   
     restart: always
     volumes:
-        - ./postgresql:/var/lib/postgresql/data
+        - postgresql:/var/lib/postgresql/data
 
   odoo14:
     image: odoo:14
@@ -66,9 +66,9 @@ services:
       - USER="erp"
       - PASSWORD="erp"
     volumes:
-      - ./erp/addons:/mnt/extra-addons
-      - ./erp/etc:/etc/odoo
-      - ./erp/data = /var/lib/odoo
+      - erp/addons:/mnt/extra-addons
+      - erp/etc:/etc/odoo
+      - erp/data = /var/lib/odoo
     restart: always             # run as a service
     entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
     
