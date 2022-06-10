@@ -2,7 +2,9 @@ services:
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
-    hostname: npm    
+    hostname: npm
+    networks:
+      - erp
     ports:
       # These ports are in format <host-port>:<container-port>
       - '80:80' # Public HTTP Port
@@ -28,6 +30,8 @@ services:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
     hostname: mariadb
+    networks:
+      - erp
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
@@ -40,12 +44,14 @@ services:
     image: postgres:13
     user: root
     hostname: postgres
+    networks:
+      - erp
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB="postgres"
-      - POSTGRES_USER="erp"
-      - POSTGRES_PASSWORD="erp"
+      - POSTGRES_DB= postgres
+      - POSTGRES_USER= erp
+      - POSTGRES_PASSWORD=erp
       
       
     restart: always             # run as a service
@@ -58,6 +64,8 @@ services:
     depends_on:
       - postgres
     hostname: erp
+    networks:
+      - erp
     ports:
       - "8069:8069"
       - "8072:8072" # live chat
@@ -65,9 +73,9 @@ services:
     command: --
 #    command: odoo scaffold /mnt/extra-addons/custom_module
     environment:
-      - HOST="postgres"
-      - USER="erp"
-      - PASSWORD="erp"
+      - HOST= postgres
+      - USER= erp
+      - PASSWORD= erp
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
