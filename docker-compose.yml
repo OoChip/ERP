@@ -1,4 +1,16 @@
 services:
+
+  mariadb:
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
+    hostname: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 'npm'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'npm'
+      MYSQL_PASSWORD: 'npm'
+    volumes:
+        - ./mariadb/:/var/lib/mysql
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
@@ -24,18 +36,6 @@ services:
     depends_on:
       - mariadb
 
-  mariadb:
-    image: 'jc21/mariadb-aria:latest'
-    restart: unless-stopped
-    hostname: mariadb
-    environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
-    volumes:
-        - ./mariadb/:/var/lib/mysql
-
   postgres:
     image: postgres:13
     user: root
@@ -46,9 +46,8 @@ services:
       - POSTGRES_DB= postgres
       - POSTGRES_USER= erp
       - POSTGRES_PASSWORD=erp
-      
-      
-    restart: always             # run as a service
+      - PGDATA=/var/lib/postgresql/data/   
+    restart: always
     volumes:
         - ./postgresql:/var/lib/postgresql/data
 
@@ -60,16 +59,15 @@ services:
     hostname: erp
     ports:
       - "8069:8069"
-      - "8072:8072" # live chat
+      - "8072:8072"
     tty: true
-    command: --
-#    command: odoo scaffold /mnt/extra-addons/custom_module
     environment:
       - HOST= postgres
       - USER= erp
-      - PASSWORD= erp
+      - PASSWORD= erp      
     volumes:
       - ./erp/addons:/mnt/extra-addons
       - ./erp/etc:/etc/odoo
       - ./erp/data = /var/lib/odoo
     restart: always             # run as a service
+    entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
