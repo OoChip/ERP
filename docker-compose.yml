@@ -1,5 +1,11 @@
-services:
+volumes:
+    mariadb:
+    npm:
+    letsencrypt:
+    postgresql:
+    erp:
 
+services:
   mariadb:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
