@@ -3,8 +3,6 @@ services:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     hostname: npm
-    networks:
-      - erp
     ports:
       # These ports are in format <host-port>:<container-port>
       - '80:80' # Public HTTP Port
@@ -30,8 +28,6 @@ services:
     image: 'jc21/mariadb-aria:latest'
     restart: unless-stopped
     hostname: mariadb
-    networks:
-      - erp
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
@@ -44,8 +40,6 @@ services:
     image: postgres:13
     user: root
     hostname: postgres
-    networks:
-      - erp
     ports:
       - "5432:5432"
     environment:
@@ -64,8 +58,6 @@ services:
     depends_on:
       - postgres
     hostname: erp
-    networks:
-      - erp
     ports:
       - "8069:8069"
       - "8072:8072" # live chat
