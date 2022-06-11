@@ -58,10 +58,10 @@ services:
     networks: 
       - erp
     environment:
-      MYSQL_ROOT_PASSWORD: 'npm'
-      MYSQL_DATABASE: 'npm'
-      MYSQL_USER: 'npm'
-      MYSQL_PASSWORD: 'npm'
+      MYSQL_ROOT_PASSWORD: "npm"
+      MYSQL_DATABASE: "npm"
+      MYSQL_USER: "npm"
+      MYSQL_PASSWORD: "npm"
     volumes:
       - mariadb_data:/var/lib/mysql
         
