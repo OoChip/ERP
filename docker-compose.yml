@@ -7,6 +7,7 @@ volumes:
     mariadb:
     npm:    
     letsencrypt:
+    duckdns:
     
 services:
   db:
@@ -69,3 +70,16 @@ services:
       - letsencrypt:/etc/letsencrypt
     depends_on:
       - mariadb
+      
+   duckdns:
+     image: lscr.io/linuxserver/duckdns:latest
+     container_name: duckdns
+     environment:
+      - PUID=1000 #optional
+      - PGID=1000 #optional
+      - TZ=America/Caracas
+      - SUBDOMAINS=donelias1.duckdns.org,donelias2.duckdns.org,donelias3.duckdns.org,donelias4.duckdns.org,donelias5.duckdns.org
+      - TOKEN=473fba06-f1d5-4dc8-850d-e0fbba0748f4
+     volumes:
+      - duckdns:/config #optional
+     restart: unless-stopped
