@@ -20,7 +20,7 @@ services:
     networks: 
       - erp
     environment:
-      - POSTGRES_DB= "erp"
+      - POSTGRES_DB= "postgres"
       - POSTGRES_USER= "erp"
       - POSTGRES_PASSWORD= "erp"
       - PGDATA=/var/lib/postgresql/data/   
@@ -41,7 +41,7 @@ services:
       - "8072:8072"
     tty: true
     environment:
-      - HOST= "erp"
+      - HOST= "postgres"
       - USER= "erp"
       - PASSWORD= "erp"
     volumes:
