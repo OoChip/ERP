@@ -10,9 +10,7 @@ volumes:
 networks:
   erp:
     driver: bridge
-  npm:
-    driver:bridge
-
+  
 services:
 
   postgres:
@@ -58,21 +56,21 @@ services:
     restart: unless-stopped
     hostname: mariadb
     networks: 
-      - npm
+      - erp
     environment:
       MYSQL_ROOT_PASSWORD: 'npm'
       MYSQL_DATABASE: 'npm'
       MYSQL_USER: 'npm'
       MYSQL_PASSWORD: 'npm'
     volumes:
-        - mariadb_data:/var/lib/mysql
+      - mariadb_data:/var/lib/mysql
         
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
     hostname: npm
     networks: 
-      - npm
+      - erp
     ports:
       - "80:80"
       - "443:443"
