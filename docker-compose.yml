@@ -14,11 +14,13 @@ networks:
 services:
 
   postgres:
-    image: postgres:13
+    image: postgres:13.7
     user: root
     hostname: postgres
     networks: 
       - erp
+    ports:
+        - "5432:5432"
     environment:
       - POSTGRES_DB= "postgres"
       - POSTGRES_USER= "erp"
