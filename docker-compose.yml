@@ -78,7 +78,7 @@ services:
       - PUID=1000 #optional
       - PGID=1000 #optional
       - TZ=America/Caracas
-      - SUBDOMAINS=donelias1.duckdns.org,donelias2.duckdns.org,donelias3.duckdns.org,donelias4.duckdns.org,donelias5.duckdns.org
+      - SUBDOMAINS=donelias1,donelias2,donelias3,donelias4,donelias5
       - TOKEN=473fba06-f1d5-4dc8-850d-e0fbba0748f4
      volumes:
       - duckdns:/config #optional
