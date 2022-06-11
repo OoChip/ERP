@@ -1,5 +1,5 @@
 volumes:
-    postgresql:
+    postgres:
     data:
     etc:
     addons:
@@ -13,10 +13,10 @@ networks:
   
 services:
 
-  postgres:
+  db:
     image: postgres:13.7
     user: root
-    hostname: postgres
+    hostname: db
     networks: 
       - erp
     environment:
@@ -25,13 +25,13 @@ services:
       - POSTGRES_PASSWORD=erp
     restart: always
     volumes:
-        - postgresql:/var/lib/postgresql/data
+        - postgres:/var/lib/postgresql/data
 
   erp:
     image: odoo:14
     user: root
     depends_on:
-      - postgres
+      - db
     hostname: erp
     networks: 
       - erp
@@ -40,13 +40,13 @@ services:
       - "8072:8072"
     tty: true
     environment:
-      - HOST= "postgres"
-      - USER= "erp"
-      - PASSWORD= "erp"
+      - HOST=bd
+      - USER=erp
+      - PASSWORD=erp
     volumes:
       - data:/var/lib/odoo
       - etc:/etc/odoo
-      - addons:/mnt/extra-addons      
+      - addons:/mnt/extra-addons
     restart: always
     entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
 
