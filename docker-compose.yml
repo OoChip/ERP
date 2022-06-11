@@ -1,11 +1,11 @@
 volumes:
-    postgres_data:
-    erp_data:
-    erp_etc:
-    erp_addons:
-    mariadb_data:
-    npm_data:    
-    letsencrypt_data:
+    postgresql:
+    data:
+    etc:
+    addons:
+    mariadb:
+    npm:    
+    letsencrypt:
    
 networks:
   erp:
@@ -19,15 +19,13 @@ services:
     hostname: postgres
     networks: 
       - erp
-    ports:
-        - "5432:5432"
     environment:
-      - POSTGRES_DB= "postgres"
-      - POSTGRES_USER= "erp"
-      - POSTGRES_PASSWORD= "erp" 
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=erp
+      - POSTGRES_PASSWORD=erp
     restart: always
     volumes:
-        - postgres_data:/var/lib/postgresql/data
+        - postgresql:/var/lib/postgresql/data
 
   erp:
     image: odoo:14
@@ -46,9 +44,9 @@ services:
       - USER= "erp"
       - PASSWORD= "erp"
     volumes:
-      - erp_data:/var/lib/odoo
-      - erp_etc:/etc/odoo
-      - erp_addons:/mnt/extra-addons      
+      - data:/var/lib/odoo
+      - etc:/etc/odoo
+      - addons:/mnt/extra-addons      
     restart: always
     entrypoint: "/usr/bin/odoo -c /etc/odoo/odoo.conf"
 
@@ -64,7 +62,7 @@ services:
       MYSQL_USER: "npm"
       MYSQL_PASSWORD: "npm"
     volumes:
-      - mariadb_data:/var/lib/mysql
+      - mariadb:/var/lib/mysql
         
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
@@ -83,7 +81,7 @@ services:
       DB_MYSQL_PASSWORD: "npm"
       DB_MYSQL_NAME: "npm"
     volumes:
-      - npm_data:/data
-      - letsencrypt_data:/etc/letsencrypt
+      - npm:/data
+      - letsencrypt:/etc/letsencrypt
     depends_on:
       - mariadb
