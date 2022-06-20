@@ -23,6 +23,7 @@ services:
 
   erp:
     image: odoo:14
+    platform: linux/amd64
     user: root
     depends_on:
       - db
