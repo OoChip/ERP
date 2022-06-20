@@ -2,7 +2,7 @@
 
 #OS.
 
-sudo mkdir /mnt/usb \n
+sudo mkdir /mnt/usb
 fdisk -l
 sudo mount /dev/sda /mnt/usb
 sudo dd if=img of=d/dev/mmcblk1
