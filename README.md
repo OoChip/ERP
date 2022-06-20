@@ -8,6 +8,14 @@ sudo mount /dev/sda /mnt/usb
 sudo dd if=img of=d/dev/mmcblk1
 sudo umount /mnt/usb
 
+#mDNS
+sudo hostname erp
+sudo apt-get -y install avahi-daemon
+sudo update-rc.d avahi-daemon defaults
+curl -fsSL https://github.com/OoChip/ERP/services/
+sudo mv services /etc/avahi/services/ssh.service
+sudo /etc/init.d/avahi-daemon restart
+
 #Docker.
 
 sudo apt-get remove docker docker-engine docker.io containerd runc
