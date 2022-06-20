@@ -1,4 +1,3 @@
-version: '2'
 volumes:
     postgres:
     erp:
@@ -9,10 +8,18 @@ volumes:
     letsencrypt:
     duckdns:
     
+networks:
+    frontend:
+    backend:
+    
 services:
   db:
     image: postgres:13
+    container_name: db
     user: root
+    networks:
+      - backend
+    hostname: db
     environment:
       - POSTGRES_PASSWORD=erp
       - POSTGRES_USER=erp
@@ -22,12 +29,16 @@ services:
         - postgres:/var/lib/postgresql/data
 
   erp:
-    image: odoo:14
+    image: odoo:14.0
+    container_name: erp
     user: root
-    depends_on:
-      - db
+    networks:
+      backend:
+      frontend:
+    hostname: erp
     ports:
       - "8069:8069"
+      - "8071:8071"
       - "8072:8072"
     tty: true
     command: --
@@ -40,10 +51,15 @@ services:
       - addons:/mnt/extra-addons
       - etc:/etc/odoo
     restart: always
+    depends_on:
+      - db
 
   mariadb:
     image: 'jc21/mariadb-aria:latest'
-    restart: unless-stopped
+    container_name: mariadb
+    networks:
+      backend:
+    hostname: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: "npm"
       MYSQL_DATABASE: "npm"
@@ -51,10 +67,15 @@ services:
       MYSQL_PASSWORD: "npm"
     volumes:
       - mariadb:/var/lib/mysql
+    restart: unless-stopped
         
   npm:
     image: 'jc21/nginx-proxy-manager:latest'
-    restart: unless-stopped
+    container_name: npm
+    networks:
+      backend:
+      frontend:
+    hostname: npm
     ports:
       - "80:80"
       - "443:443"
@@ -68,18 +89,22 @@ services:
     volumes:
       - npm:/data
       - letsencrypt:/etc/letsencrypt
+    restart: unless-stopped
     depends_on:
       - mariadb
-      
-   duckdns:
-     image: lscr.io/linuxserver/duckdns:latest
-     container_name: duckdns
-     environment:
+
+  duckdns:
+    image: 'linuxserver/duckdns:latest'
+    container_name: duckdns
+    networks:
+      backend:
+    hostname: duckdns
+    environment:
       - PUID=1000 #optional
       - PGID=1000 #optional
       - TZ=America/Caracas
       - SUBDOMAINS=donelias1,donelias2,donelias3,donelias4,donelias5
       - TOKEN=473fba06-f1d5-4dc8-850d-e0fbba0748f4
-     volumes:
-      - duckdns:/config #optional
-     restart: unless-stopped
+    volumes:
+      - duckdns:/config
+    restart: unless-stopped
