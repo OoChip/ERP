@@ -54,3 +54,10 @@ sudo mkcert -install
 
 sudo mkcert -key-file key.pem -cert-file cert.pem localhost 127.0.0.1 0.0.0.0 erp.local "*.erp.local"
 
+#NPM
+#  Default login. 
+#   Email: admin@example.com
+#   Password: changeme
+
+
+
