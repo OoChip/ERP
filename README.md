@@ -7,14 +7,15 @@ fdisk -l
 sudo mount /dev/sda /mnt/usb
 sudo dd if=img of=d/dev/mmcblk1
 sudo umount /mnt/usb
+sudo reboot
 
 #mDNS
 sudo hostname erp
 sudo apt-get -y install avahi-daemon
 sudo update-rc.d avahi-daemon defaults
-curl -fsSL https://github.com/OoChip/ERP/services/
-sudo mv services /etc/avahi/services/ssh.service
+rm -fr ERP && git clone https://github.com/OoChip/ERP.git && cd ERP && sudo mv services /etc/avahi && cd .. && rm -fr ERP
 sudo /etc/init.d/avahi-daemon restart
+sudo systemctl restart avahi-daemon
 
 #Docker.
 
