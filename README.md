@@ -13,7 +13,7 @@ sudo reboot
 sudo hostname erp
 sudo apt-get -y install avahi-daemon
 sudo update-rc.d avahi-daemon defaults
-rm -fr ERP && git clone https://github.com/OoChip/ERP.git && cd ERP && sudo mv services /etc/avahi && cd .. && rm -fr ERP
+rm -fr ERP && git clone https://github.com/OoChip/ERP.git && sudo mv ERP/services/* /etc/avahi/services/ && rm -fr ERP
 sudo /etc/init.d/avahi-daemon restart
 sudo systemctl restart avahi-daemon
 
