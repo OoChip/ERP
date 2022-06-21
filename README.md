@@ -11,6 +11,7 @@ sudo reboot
 
 #mDNS
 sudo hostname erp
+sudo hostnamectl set-hostname erp
 sudo apt-get -y install avahi-daemon
 sudo update-rc.d avahi-daemon defaults
 rm -fr ERP && git clone https://github.com/OoChip/ERP.git && sudo mv ERP/services/* /etc/avahi/services/ && rm -fr ERP
