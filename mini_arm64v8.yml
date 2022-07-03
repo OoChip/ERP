@@ -36,7 +36,7 @@ services:
       frontend:
     hostname: erp
     ports:
-      - "8069:8069"
+      - "80:8069"
       - "8071:8071"
       - "8072:8072"
     tty: true
