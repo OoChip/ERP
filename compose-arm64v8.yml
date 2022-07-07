@@ -9,7 +9,6 @@ volumes:
     duckdns:
     
 networks:
-    frontend:
     backend:
     
 services:
@@ -35,7 +34,7 @@ services:
     user: root
     networks:
       backend:
-      frontend:
+      bridge:
     hostname: erp
     ports:
       - "8069:8069"
@@ -75,7 +74,7 @@ services:
     container_name: npm
     networks:
       backend:
-      frontend:
+      bridge:
     hostname: npm
     ports:
       - "80:80"
