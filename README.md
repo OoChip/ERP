@@ -18,6 +18,11 @@ rm -fr ERP && git clone https://github.com/OoChip/ERP.git && sudo mv ERP/service
 sudo /etc/init.d/avahi-daemon restart
 sudo systemctl restart avahi-daemon
 
+#upnpc
+sudo apt-get install -y miniupnpc
+ip route get 1.2.3.4 | awk '{print $7}'
+
+
 #Docker.
 
 sudo apt-get remove docker docker-engine docker.io containerd runc
