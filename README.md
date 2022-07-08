@@ -20,7 +20,9 @@ sudo systemctl restart avahi-daemon
 
 #upnpc
 sudo apt-get install -y miniupnpc
-ip route get 1.2.3.4 | awk '{print $7}'
+sudo apt install cron
+sudo systemctl enable cron
+copiar script en /bin hacer propiedad de root, hacerlo ejecutable, programar la crontab y a mimir
 
 
 #Docker.
