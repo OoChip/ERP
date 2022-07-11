@@ -102,9 +102,11 @@ sudo gdebi --n wkhtmltox_0.12.5-1.focal_amd64.deb
 sudo ln -s /usr/local/bin/wkhtmltopdf /usr/bin
 sudo ln -s /usr/local/bin/wkhtmltoimage /usr/bin
 
-#Install postgresql
+#Install and config Postgresql
 sudo apt install -y postgresql postgresql-client
-sudo -u postgres createuser -s $USER
+sudo -u postgres createuser -s odoo
+createdb odoo
+
 
 #Run
 cd $HOME/src/odoo/
