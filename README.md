@@ -104,11 +104,18 @@ sudo ln -s /usr/local/bin/wkhtmltoimage /usr/bin
 
 #Install and config Postgresql
 sudo apt install -y postgresql postgresql-client
-sudo -u postgres createuser -s odoo
+sudo -u postgres createuser -s $USER
 createdb odoo
-
 
 #Run
 cd $HOME/src/odoo/
-./odoo-bin --addons-path="addons/,../enterprise/" -d rd-demo
+~/src/odoo/odoo-bin --addons-path="addons/," -d odoo
+
+login:
+http://localhost:8069
+http://0.0.0.0:8069
+http://127.0.0.1:8069
+
+email = admin
+password = admin
 
