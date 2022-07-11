@@ -63,7 +63,8 @@ docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/d
 # https://dl.filippo.io/mkcert/v1.4.4?for=windows/amd64
 
 sudo apt install libnss3-tools
-sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/arm64"
+sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/arm64" #amr64
+sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" #amd64
 sudo chmod +x mkcert*
 sudo mv mkcert* /usr/local/bin/mkcert
 sudo mkcert -key-file key.pem -cert-file cert.pem localhost 127.0.0.1 0.0.0.0 erp.local
