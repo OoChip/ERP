@@ -77,4 +77,29 @@ sudo rm *.pem
 #   Password: changeme
 
 
+#Github
+sudo apt install git
+git config --global user.name "oochip"
+git config --global user.email "oochip2001@gmail.com"
+ssh-keygen -t ed25519 -C "oochip2001@gmail.com"
+ssh-add ~/.ssh/id_ed25519
+sudo apt-get install -y xclip
+xclip -sel clip < ~/.ssh/id_ed25519.pub
+#In Github -> settings -> SSH and GPG keys -> Add SSH key -> paste
+
+#Clone repo
+mkdir -p $HOME/src
+cd ~/src
+git clone git@github.com:odoo/odoo.git
+
+#Install Dependencies
+sudo apt install -y python3-pip python3-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-dev libpq-dev libjpeg-dev
+
+Install Requirements
+pip3 install -r ~/src/odoo/requirements.txt
+cd /tmp/
+sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.focal_amd64.deb
+sudo gdebi --n wkhtmltox_0.12.5-1.focal_amd64.deb
+sudo ln -s /usr/local/bin/wkhtmltopdf /usr/bin
+sudo ln -s /usr/local/bin/wkhtmltoimage /usr/bin
 
