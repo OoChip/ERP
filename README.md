@@ -76,7 +76,6 @@ sudo rm *.pem
 #   Email: admin@example.com
 #   Password: changeme
 
-
 #Github
 sudo apt install git
 git config --global user.name "oochip"
@@ -93,7 +92,7 @@ cd ~/src
 git clone git@github.com:odoo/odoo.git
 
 #Install Dependencies
-sudo apt install -y python3-pip python3-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-dev libpq-dev libjpeg-dev
+sudo apt install -y python3-pip python3-dev python3-virtualenv libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-dev libpq-dev libjpeg-dev
 
 Install Requirements
 pip3 install -r ~/src/odoo/requirements.txt
