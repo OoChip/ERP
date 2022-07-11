@@ -51,20 +51,21 @@ docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/d
 
 #user: "oochip" password: "7Abrete37."
 
+
 #Stack.
 
 1. https://github.com/OoChip/ERP/
 2. refs/heads/main
 3. compose-amd64.yml or compose-arm64v8.yml
 
-#mkcert
-# https://dl.filippo.io/mkcert/v1.4.4?for=linux/arm64
-# https://dl.filippo.io/mkcert/latest?for=linux/amd64
-# https://dl.filippo.io/mkcert/v1.4.4?for=windows/amd64
 
+#mkcert
 sudo apt install libnss3-tools
-sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/arm64" #amr64
-sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64" #amd64
+
+sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/arm64"
+sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
+sudo curl -JLO "https://dl.filippo.io/mkcert/v1.4.4?for=windows/amd64"
+
 sudo chmod +x mkcert*
 sudo mv mkcert* /usr/local/bin/mkcert
 sudo mkcert -key-file key.pem -cert-file cert.pem localhost 127.0.0.1 0.0.0.0 erp.local
@@ -93,9 +94,14 @@ cd ~/src
 git clone git@github.com:odoo/odoo.git
 
 #Install Dependencies
-sudo apt install -y python3-pip python3-dev python3-virtualenv libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-dev libpq-dev libjpeg-dev
+sudo apt install -y python3-pip python3-dev libxml2-dev libxslt1-dev libldap2-dev libsasl2-dev libssl-dev libpq-dev libjpeg-dev
 
-Install Requirements
+#Virtualenv
+sudo apt-get install -y python3-virtualenv virtualenv
+virtualenv venv # venv = name od the virtual enviroment tu be created.
+venv/bin/activate
+
+Install Requirements (install inside of the venv)
 pip3 install -r ~/src/odoo/requirements.txt
 cd /tmp/
 sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.focal_amd64.deb
