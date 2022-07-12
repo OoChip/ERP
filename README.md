@@ -117,6 +117,7 @@ createdb odoo
 #Run
 cd $HOME/src/odoo/
 ~/src/odoo/odoo-bin --addons-path="addons/," -d odoo
+./odoo-bin -c odoo.conf
 
 login:
 http://localhost:8069
@@ -125,4 +126,8 @@ http://127.0.0.1:8069
 
 email = admin
 password = admin
+
+#Scaffold
+sudo mkdir ~/src/odoo/custom/
+odoo-bin scaffold my_module /custom/
 
