@@ -116,7 +116,7 @@ createdb odoo
 
 #Run
 cd $HOME/src/odoo/
-~/src/odoo/odoo-bin --addons-path="addons/," -d odoo
+./odoo-bin --addons-path="addons" -d odoo
 ./odoo-bin -c odoo.conf
 
 login:
