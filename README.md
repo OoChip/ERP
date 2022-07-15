@@ -29,6 +29,14 @@ erp.local:82
 2. refs/heads/main
 3. compose-amd64.yml or compose-arm64v8.yml
 
+#NPM
+# Default login. 
+#   Email: admin@example.com
+#   Password: changeme
+
+##########################################################################################################################
+##########################################################################################################################
+
 #mkcert
 sudo apt install libnss3-tools
 
@@ -40,11 +48,6 @@ sudo mv mkcert* /usr/local/bin/mkcert
 sudo mkcert -key-file key.pem -cert-file cert.pem localhost 127.0.0.1 0.0.0.0 erp.local
 sudo mkcert -install
 sudo rm *.pem
-
-#NPM
-#  Default login. 
-#   Email: admin@example.com
-#   Password: changeme
 
 #Github
 sudo apt install git
