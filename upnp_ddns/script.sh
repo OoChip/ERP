@@ -26,7 +26,7 @@ echo Router Ip: $router_ip
 echo IGD Port: $igd_port
 echo IGD Desc Url: $igd_desc_url
 echo IGD Control Url: $igd_control_url
-echo Puertos: ${ports[@]}
+echo Puertos: 23(ssh), 80(http), 81(portainer), 82(npm), 443(https), 51820(pivpn)
 echo
 
 external_port=23
