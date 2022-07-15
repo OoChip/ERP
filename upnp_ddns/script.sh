@@ -2,7 +2,9 @@
 #/bin/script.sh
 
 #DuckDNS
-ddns_domain=hannahpapeles
+echo "Recuerda crear el DDNS Domain en DuckDNS"
+echo "Enter DDNS Domain: "
+read ddns_domain
 ddns_token=473fba06-f1d5-4dc8-850d-e0fbba0748f4
 ddns_update=$(curl -fsSL https://duckdns.org/update/{$ddns_domain}/{$ddns_token}/)
 echo
