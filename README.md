@@ -21,8 +21,11 @@ groupmod -n oochip rock
 curl -fsSL https://raw.githubusercontent.com/OoChip/ERP/main/install.sh -o install.sh
 sudo sh install.sh
 
-erp.local:82
-#user: "oochip" password: "7Abrete37."
+#Portainer
+# http://erp.local:82
+# Set login to:
+#   User: "oochip2001@gmail.com"
+#   Password: 7Abrete37  (7Abrete3712345)
 
 #Stack.
 1. https://github.com/OoChip/ERP/
@@ -30,9 +33,13 @@ erp.local:82
 3. compose-amd64.yml or compose-arm64v8.yml
 
 #NPM
+# http://erp.local:81
 # Default login. 
 #   Email: admin@example.com
 #   Password: changeme
+# Change to 
+#   Email: oochip2001@gmail.com
+#   Password: 7Abrete37
 
 ##########################################################################################################################
 ##########################################################################################################################
