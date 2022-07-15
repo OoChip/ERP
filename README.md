@@ -19,7 +19,7 @@ groupmod -n oochip rock
 
 #Continue in ssh
 sudo apt update && sudo apt install -y curl
-curl -fsSL https://raw.githubusercontent.com/OoChip/ERP/main/install.sh -o install.sh
+sudo curl -fsSL https://raw.githubusercontent.com/OoChip/ERP/main/install.sh -o install.sh
 sudo sh install.sh
 
 #Portainer
