@@ -6,7 +6,6 @@ volumes:
     mariadb:
     npm:    
     letsencrypt:
-    duckdns:
     
 networks:
     backend:
@@ -93,19 +92,3 @@ services:
     restart: unless-stopped
     depends_on:
       - mariadb
-
-  duckdns:
-    image: 'linuxserver/duckdns:latest'
-    container_name: duckdns
-    networks:
-      backend:
-    hostname: duckdns
-    environment:
-      - PUID=1000 #optional
-      - PGID=1000 #optional
-      - TZ=America/Caracas
-      - SUBDOMAINS=hannahpapeles.duckdns.org
-      - TOKEN=473fba06-f1d5-4dc8-850d-e0fbba0748f4
-    volumes:
-      - duckdns:/config
-    restart: unless-stopped
