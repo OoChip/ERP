@@ -20,6 +20,8 @@ groupmod -n oochip rock
 
 
 #Continue in ssh
+curl -fsSL https://raw.githubusercontent.com/OoChip/ERP/main/install.sh -o install.sh
+sudo sh install.sh
 
 #Intall requeriments
 sudo mkdir -p /etc/apt/keyrings
