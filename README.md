@@ -13,7 +13,7 @@ passwd
 sudo passwd root
 sudo reboot
 #login as root
-usermod -l oochip rock
+usermod -l rock oochip
 usermod -d /home/oochip oochip
 groupmod -n oochip rock
 
