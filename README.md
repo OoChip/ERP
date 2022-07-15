@@ -32,7 +32,7 @@ echo \
 sudo apt update && apt upgrade
 sudo apt-get -y install apt-utils  avahi-daemon git miniupnpc cron curl ca-certificates gnupg lsb-release docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker oochip
 
 #mDNS
 sudo hostnamectl set-hostname erp
@@ -44,7 +44,7 @@ sudo chmod +x ERP/upnp_ddns/script.sh && sudo mv ERP/upnp_ddns/script.sh /bin &&
 sudo systemctl enable cron
 
 #Portainer.
-docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainerce:latest
+docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
 
 docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes -v /:/host portainer/agent:2.10.0
 
