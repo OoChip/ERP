@@ -1,7 +1,6 @@
 # ERP
 
 #OS.
-
 sudo mkdir /mnt/usb
 fdisk -l
 sudo mount /dev/sda /mnt/usb
@@ -9,48 +8,45 @@ sudo dd if=img of=d/dev/mmcblk1
 sudo umount /mnt/usb
 sudo reboot
 
-#mDNS
-sudo hostname erp
-sudo hostnamectl set-hostname erp
-sudo apt-get -y install avahi-daemon
-sudo update-rc.d avahi-daemon defaults
-rm -fr ERP && git clone https://github.com/OoChip/ERP.git && sudo mv ERP/services/* /etc/avahi/services/ && rm -fr ERP
-sudo /etc/init.d/avahi-daemon restart
-sudo systemctl restart avahi-daemon
-
-#upnpc
-sudo apt-get install -y miniupnpc
-sudo apt install cron
-sudo systemctl enable cron
-copiar script en /bin hacer propiedad de root, hacerlo ejecutable, programar la crontab y a mimir
+#Usermod
+#login: rock  passwd: rock
+passwd
+sudo passwd root
+sudo reboot
+#login as root
+usermod -l rock oochip
+usermod -d /home/oochip oochip
+groupmod -n oochip rock
 
 
-#Docker.
+#Continue in ssh
 
-sudo apt-get remove docker docker-engine docker.io containerd runc
-sudo apt-get update
-sudo apt-get install \ ca-certificates \ curl \ gnupg \ lsb-release
+#Intall requeriments
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-
-echo \ "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-sudo apt-get update
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-
-#Docker sin SUDO.
-
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update && apt upgrade
+sudo apt-get -y install apt-utils  avahi-daemon git miniupnpc cron curl ca-certificates gnupg lsb-release docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo groupadd docker
-sudo usermod -aG docker oochip
+sudo usermod -aG docker $USER
+
+#mDNS
+sudo hostnamectl set-hostname erp
+sudo update-rc.d avahi-daemon defaults
+git clone https://github.com/OoChip/ERP.git && sudo mv ERP/services/* /etc/avahi/services/ && sudo /etc/init.d/avahi-daemon restart
+
+#upnpc
+sudo chmod +x ERP/upnp_ddns/script.sh && sudo mv ERP/upnp_ddns/script.sh /bin && sudo mv ERP/upnp_ddns/root /var/spool/cron/crontabs
+sudo systemctl enable cron
 
 #Portainer.
-
 docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainerce:latest
 
 docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes -v /:/host portainer/agent:2.10.0
 
 #user: "oochip" password: "7Abrete37."
-
 
 #Stack.
 
@@ -58,13 +54,11 @@ docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/d
 2. refs/heads/main
 3. compose-amd64.yml or compose-arm64v8.yml
 
-
 #mkcert
 sudo apt install libnss3-tools
 
 sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/arm64"
 sudo curl -JLO "https://dl.filippo.io/mkcert/latest?for=linux/amd64"
-sudo curl -JLO "https://dl.filippo.io/mkcert/v1.4.4?for=windows/amd64"
 
 sudo chmod +x mkcert*
 sudo mv mkcert* /usr/local/bin/mkcert
