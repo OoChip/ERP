@@ -8,8 +8,12 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update && sudo apt upgrade -y
 sudo apt -y install apt-utils  avahi-daemon git miniupnpc cron ca-certificates gnupg lsb-release docker-ce docker-ce-cli containerd.io docker-compose-plugin
-sudo groupadd docker
+sudo groupadd docker systemd-timesyncd 
 sudo usermod -aG docker $USER
+
+#RTC
+sudo timedatectl set-timezone "America/Caracas" && timedatectl set-local-rtc 1 && timedatectl set-ntp true
+
 
 #mDNS
 sudo hostnamectl set-hostname erp
