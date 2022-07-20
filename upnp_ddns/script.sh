@@ -32,37 +32,37 @@ external_port=23
 internal_port=23
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
-upnpc -u  $igd_desc_url -e "SSH mapping for ERP" -a $lan_ip $internal_port $external_port TCP > /dev/null
+upnpc -u  $igd_desc_url -e "SSH" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
 external_port=80
 internal_port=80
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
-upnpc -u  $igd_desc_url -e "SSH mapping for ERP" -a $lan_ip $internal_port $external_port TCP > /dev/null
+upnpc -u  $igd_desc_url -e "HTTP" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
 external_port=81
 internal_port=81
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
-upnpc -u  $igd_desc_url -e "SSH mapping for ERP" -a $lan_ip $internal_port $external_port TCP > /dev/null
+upnpc -u  $igd_desc_url -e "NPM" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
 external_port=82
 internal_port=82
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
-upnpc -u  $igd_desc_url -e "SSH mapping for ERP" -a $lan_ip $internal_port $external_port TCP > /dev/null
+upnpc -u  $igd_desc_url -e "Portainer" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
 external_port=443
 internal_port=443
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
-upnpc -u  $igd_desc_url -e "SSH mapping for ERP" -a $lan_ip $internal_port $external_port TCP > /dev/null
+upnpc -u  $igd_desc_url -e "HTTPS" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
 external_port=51820
 internal_port=51820
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
-upnpc -u  $igd_desc_url -e "Wireguard mapping for PiVPN" -a $lan_ip $internal_port $external_port TCP > /dev/null
+upnpc -u  $igd_desc_url -e "PiVPN" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
 upnpc -l | sed '1,16d' | sed '$d'
 
