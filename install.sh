@@ -21,7 +21,7 @@ sudo update-rc.d avahi-daemon defaults
 git clone https://github.com/OoChip/ERP.git && sudo mv ERP/services/* /etc/avahi/services/ && sudo /etc/init.d/avahi-daemon restart
 
 #upnpc
-sudo chmod +x ERP/upnp_ddns/script.sh && sudo mv ERP/upnp_ddns/script.sh /bin && sudo mv ERP/upnp_ddns/root /var/spool/cron/crontabs
+sudo chmod +x ERP/upnp_ddns/script.sh && sudo mv ERP/upnp_ddns/script.sh /bin && sudo mv ERP/upnp_ddns/root /var/spool/cron/crontabs/oochip
 sudo systemctl enable cron
 sudo rm -rf ERP
 
