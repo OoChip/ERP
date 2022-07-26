@@ -3,11 +3,16 @@
 sudo mkdir -p /etc/apt/keyrings
 sudo apt install -y curl
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.webmin.com/jcameron-key.asc | sudo gpg --dearmor -o /etc/apt/keyrings/jcameron-key.gpg
 echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+echo \
+  "deb [signed-by=/etc/apt/keyrings/jcameron-key.gpg] https://download.webmin.com/download/repository sarge contrib" \
+  | sudo tee /etc/apt/sources.list.d/webmin.list > /dev/null
 sudo apt update && sudo apt upgrade -y
-sudo apt -y install apt-utils  avahi-daemon git miniupnpc cron ca-certificates gnupg lsb-release docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt -y install apt-utils  avahi-daemon git miniupnpc cron ca-certificates gnupg lsb-release apt-transport-https webmin \
+  docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo groupadd docker systemd-timesyncd 
 sudo usermod -aG docker $USER
 
