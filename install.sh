@@ -15,6 +15,7 @@ sudo apt -y install apt-utils  avahi-daemon git miniupnpc cron ca-certificates g
   docker-ce docker-ce-cli containerd.io docker-compose-plugin
 sudo groupadd docker systemd-timesyncd 
 sudo usermod -aG docker $USER
+sudo sed 's/port=10000/port=83/' /etc/webmin/miniserv.conf
 
 #RTC
 sudo timedatectl set-timezone "America/Caracas" && timedatectl set-local-rtc 1 && timedatectl set-ntp true
@@ -35,3 +36,5 @@ docker run -d -p 8000:8000 -p 82:9443 --name portainer --restart=always -v /var/
 docker run -d -p 9001:9001 --name portainer_agent --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v /var/lib/docker/volumes:/var/lib/docker/volumes -v /:/host portainer/agent:latest
 
 curl -L https://install.pivpn.io | bash
+
+sudo reboot
