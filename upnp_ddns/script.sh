@@ -52,6 +52,13 @@ upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
 upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
 upnpc -u  $igd_desc_url -e "Portainer" -a $lan_ip $internal_port $external_port TCP > /dev/null
 
+external_port=83
+internal_port=83
+upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
+upnpc -u  $igd_desc_url -d $internal_port UDP > /dev/null
+upnpc -u  $igd_desc_url -e "Webmin" -a $lan_ip $internal_port $external_port TCP > /dev/null
+
+
 external_port=443
 internal_port=443
 upnpc -u  $igd_desc_url -d $internal_port TCP > /dev/null
